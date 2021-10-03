@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,5 +75,18 @@ public class TravelAgensiController {
         TravelAgensiModel updatedAgensi = travelAgensiService.updateAgensi(agensi);
         model.addAttribute("noAgensi", updatedAgensi.getNoAgensi());
         return "update-agensi";
+    }
+
+    @GetMapping("/agensi/delete/{noAgensi}")
+    public String deleteAgensi(@PathVariable Long noAgensi, Model model) {
+        LocalTime now = LocalTime.now();
+        TravelAgensiModel agensi = travelAgensiService.getAgensiByNoAgensi(noAgensi);
+        if ((now.isBefore(agensi.getWaktuBuka()) || now.isAfter(agensi.getWaktuTutup()))
+                && agensi.getListTourGuide().isEmpty()) {
+            travelAgensiService.deleteAgensi(agensi);
+            model.addAttribute("noAgensi", agensi.getNoAgensi());
+            return "delete-agensi";
+        }
+        return "error-notfound";
     }
 }

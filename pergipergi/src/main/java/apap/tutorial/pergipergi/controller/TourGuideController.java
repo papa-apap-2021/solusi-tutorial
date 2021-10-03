@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.time.LocalTime;
+
 @Controller
 public class TourGuideController {
 
@@ -39,5 +42,45 @@ public class TourGuideController {
         tourGuideService.addTourGuide(tourGuide);
         model.addAttribute("noTourGuide", tourGuide.getNoTourGuide());
         return "add-tour-guide";
+    }
+
+    @GetMapping("/tour-guide/update/{noTourGuide}")
+    public String updateTourGuideForm(@PathVariable Long noTourGuide, Model model){
+        TourGuideModel guide = tourGuideService.getTourGuideByNoTourGuide(noTourGuide);
+        if (guide == null){
+            return "error-notfound";
+        }
+        model.addAttribute("guide", guide);
+        return "form-update-tour-guide";
+    }
+
+    @PostMapping("/tour-guide/update")
+    public String updateTourGuideSubmit(
+            @ModelAttribute TourGuideModel guide,
+            Model model
+    ){
+        LocalTime now = LocalTime.now();
+        TravelAgensiModel agensi = guide.getAgensi();
+        if (now.isBefore(agensi.getWaktuBuka()) || now.isAfter(agensi.getWaktuTutup())){
+            tourGuideService.updateTourGuide(guide);
+            model.addAttribute("namaTourGuide", guide.getNamaTourGuide());
+            model.addAttribute("noTourGuide", guide.getNoTourGuide());
+            return "update-tour-guide";
+        }
+        return "error-notfound";
+    }
+
+    @GetMapping("/tour-guide/delete/{noTourGuide}")
+    public String deleteTourGuideForm(@PathVariable Long noTourGuide, Model model){
+        LocalTime now = LocalTime.now();
+        TourGuideModel guide = tourGuideService.getTourGuideByNoTourGuide(noTourGuide);
+        TravelAgensiModel agensi = guide.getAgensi();
+        if (now.isBefore(agensi.getWaktuBuka()) || now.isAfter(agensi.getWaktuTutup())){
+            tourGuideService.deleteTourGuide(guide);
+            model.addAttribute("namaTourGuide", guide.getNamaTourGuide());
+            model.addAttribute("noTourGuide", guide.getNoTourGuide());
+            return "delete-tour-guide";
+        }
+        return "error-notfound";
     }
 }

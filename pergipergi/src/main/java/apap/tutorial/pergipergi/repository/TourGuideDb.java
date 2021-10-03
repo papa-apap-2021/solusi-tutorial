@@ -9,4 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface TourGuideDb extends JpaRepository<TourGuideModel,Long> {
+    Optional<TourGuideModel> findByNoTourGuide(Long noTourGuide);
 }

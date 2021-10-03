@@ -9,4 +9,5 @@ public interface TravelAgensiService {
     List<TravelAgensiModel> getListAgensi();
     TravelAgensiModel getAgensiByNoAgensi(Long noAgensi);
     TravelAgensiModel updateAgensi(TravelAgensiModel travelAgensi);
+    void deleteAgensi(TravelAgensiModel travelAgensi);
 }

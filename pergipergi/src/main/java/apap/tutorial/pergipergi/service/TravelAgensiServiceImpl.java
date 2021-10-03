@@ -38,4 +38,9 @@ public class TravelAgensiServiceImpl implements TravelAgensiService{
         travelAgensiDb.save(travelAgensi);
         return travelAgensi;
     }
+
+    @Override
+    public void deleteAgensi(TravelAgensiModel travelAgensi) {
+        travelAgensiDb.delete(travelAgensi);
+    }
 }
