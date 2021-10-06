@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>PergiPergi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"></head>
+<body>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2>Tambah Agensi</h2>
+                <br>
+                <form th:action="@{/agensi/add}" th:object="${agensi}" method="POST">
+                    Nama Agensi : <br>
+                    <input class="form-control" th:value="*{namaAgensi}" type="text" name="namaAgensi"/>
+                    <br><br>
+
+                    Alamat Agensi: <br>
+                    <input class="form-control" th:value="*{alamatAgensi}" type="text" name="alamatAgensi"/>
+                    <br><br>
+
+                    Nomor Telepon : <br>
+                    <input class="form-control" th:value="*{noTeleponAgensi}" type="text" name="noTeleponAgensi"/>
+                    <br><br>
+
+                    Waktu Buka : <br>
+                    <input required class="form-control" th:value="*{waktuBuka}" type="time" name="waktuBuka" />
+                    <br><br>
+
+                    Waktu Tutup : <br>
+                    <input required class="form-control" th:value="*{waktuTutup}" type="time" name="waktuTutup" />
+                    <br><br>
+
+                    <table class="table">
+                        <thead>
+                        <th>Negara Destinasi</th>
+                        <th>
+                            <button class="btn btn-primary" type="submit" name="addRow">Tambah Row</button>
+                        </th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="destinasi, iterationStatus : *{listDestinasi}">
+                            <td>
+                                <select name="noDestinasi" th:field="*{listDestinasi[__${iterationStatus.index}__].noDestinasi}"
+                                        class="form-control">
+                                    <div th:each="destinasiEx, iterationStatus2 : ${listDestinasiExisting}">
+                                        <option th:value="${destinasiEx.noDestinasi}" th:text="${destinasiEx.negaraDestinasi}"></option>
+                                    </div>
+                                </select>
+                            </td>
+                            <td>
+                                <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit"
+                                        name="deleteRow">Hapus</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <button class="btn btn-primary" type="submit" name="save">Submit</button>
+                    <a class="btn btn-primary" href="/">Home</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

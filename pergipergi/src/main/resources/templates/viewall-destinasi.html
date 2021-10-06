@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Daftar Destinasi </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Destinasi')"></nav>
+<div class="container">
+    <h2>Daftar Seluruh Destinasi</h2>
+    <br>
+    <a class="btn btn-primary" th:href="@{/destinasi/add}">Tambah Destinasi</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>No Destinasi</th>
+            <th>Negara Destinasi</th>
+            <th>Bebas Visa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="destinasi, iterationStatus : ${listDestinasi}"
+            th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${destinasi.noDestinasi}"></td>
+            <td th:text="${destinasi.negaraDestinasi}"></td>
+            <td th:if="${destinasi.isBebasVisa} == true">YA</td>
+            <td th:if="${destinasi.isBebasVisa} == false">TIDAK</td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a class="btn btn-primary" href="/">Home</a>
+</div>
+
+</body>
+
+</html>

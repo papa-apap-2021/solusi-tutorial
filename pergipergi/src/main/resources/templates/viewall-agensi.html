@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Daftar Agensi </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Agensi')"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2>List Agensi</h2>
+                <br>
+                <div th:each="agensi : ${listAgensi}">
+                    <p th:text="'Id Agensi    : ' + ${agensi.noAgensi}"></p>
+                    <p th:text="'Nama Agensi  : ' + ${agensi.namaAgensi}"></p>
+                    <p th:text="'Alamat Agensi: ' + ${agensi.alamatAgensi}"></p>
+                    <p th:text="'Nomor Telepon: ' + ${agensi.noTeleponAgensi}"></p>
+                    <p th:text="'Waktu Buka: ' + ${agensi.waktuBuka}"></p>
+                    <p th:text="'Waktu Tutup: ' + ${agensi.waktuTutup}"></p>
+                    <div class="col">
+                        <a class="btn btn-primary" th:href="@{/agensi/view(noAgensi=${agensi.noAgensi})}">Detail
+                            Agensi</a>
+                        <a class="btn btn-primary" th:href="@{/agensi/update/} + ${agensi.noAgensi}">Update Agensi</a>
+                        <a class="btn btn-danger" th:href="@{/agensi/delete/} + ${agensi.noAgensi}">Delete Agensi</a>
+                    </div>
+                    <hr>
+                </div>
+                <br>
+                <a class="btn btn-primary" href="/">Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
