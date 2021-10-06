@@ -32,4 +32,12 @@ public class FilmController {
         model.addAttribute("noFilm", film.getNoFilm());
         return "add-film";
     }
+
+    @GetMapping("/film/viewall")
+    public String viewAllFilm(
+        Model model
+    ){
+        model.addAttribute("listFilm", filmService.getListFilm());
+        return "viewall-film";
+    }
 }

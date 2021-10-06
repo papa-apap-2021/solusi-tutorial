@@ -2,19 +2,22 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 
 <head>
-  <title>21 Cineplux</title>
+  <meta charset="UTF-8">
+  <title> Delete Penjaga </title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
 
 <body>
+<nav th:replace="fragments/fragment :: navbar('Bioskop')"></nav>
 <div class="container">
   <div class="card m-4 p-4">
     <div class="card-body">
       <div class="justify-content-center">
         <br>
-        <h2
-                th:text="'Penjaga '+${namaPenjaga}+ ' telah berhasil dihapus'">
+        <h2 th:text="'Penjaga berhasil dihapus.'">
         </h2>
         <a class="btn btn-primary" th:href="@{/bioskop/view(noBioskop=${noBioskop})}">Kembali</a>
 

@@ -2,7 +2,9 @@ package apap.tutorial.cineplux.service;
 
 import apap.tutorial.cineplux.model.FilmModel;
 
-public interface FilmService {
+import java.util.List;
 
+public interface FilmService {
     void addFilm(FilmModel film);
+    List<FilmModel> getListFilm();
 }

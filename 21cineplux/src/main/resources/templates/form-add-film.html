@@ -10,25 +10,28 @@
 </head>
 
 <body>
-  <nav th:replace="fragments/fragment :: navbar('Bioskop')"></nav>
+  <nav th:replace="fragments/fragment :: navbar('Film')"></nav>
 
   <div class="container">
     <div class="card m-4 p-4">
       <div class="card-body">
         <div class="justify-content-center">
-          <h2>Tambah Penjaga</h2>
+          <h2>Tambah Film</h2>
           <br>
-          <form th:action="@{/penjaga/add}" th:object="${penjaga}" method="POST">
-            <input type="hidden" th:field="*{bioskop}" />
+          <form th:action="@{/film/add}" th:object="${film}" method="POST">
 
-            Nama Penjaga : <br>
-            <input required class="form-control" type="text" name="namaPenjaga" />
+            Nama Film : <br>
+            <input required class="form-control" type="text" name="namaFilm" />
             <br><br>
 
-            Umur Penjaga : <br>
-            <select name="jenisKelamin" th:field="*{jenisKelamin}" class="form-control">
-              <option th:value="0" th:text="Laki-Laki"></option>
-              <option th:value="1" th:text="Perempuan"></option>
+            Deskripsi Film : <br>
+            <input required class="form-control" type="text" name="deskripsiFilm" />
+            <br><br>
+
+            Sedang Tayang : <br>
+            <select name="isDisplaying" th:field="*{isDisplaying}" class="form-control">
+              <option th:value="0" th:text="YA"></option>
+              <option th:value="1" th:text="TIDAK"></option>
             </select>
             <br><br>
 

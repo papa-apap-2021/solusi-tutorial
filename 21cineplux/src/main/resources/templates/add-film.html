@@ -10,14 +10,14 @@
 </head>
 
 <body>
-  <nav th:replace="fragments/fragment :: navbar('Bioskop')"></nav>
+  <nav th:replace="fragments/fragment :: navbar('Film')"></nav>
   <div class="container">
     <div class="card m-4 p-4">
       <div class="card-body">
         <div class="justify-content-center">
-          <h2 th:text="'Bioskop dengan nomor bioskop ' + ${noBioskop} + ' berhasil diubah.'"></h2>
+          <h2 th:text="'Film dengan nomor film ' + ${noFilm} + ' berhasil ditambahkan.'"></h2>
           <br>
-          <a class="btn btn-primary" th:href="@{/bioskop/view(noBioskop=${noBioskop})}">Kembali</a>
+          <a class="btn btn-primary" href="/">Home</a>
         </div>
       </div>
     </div>

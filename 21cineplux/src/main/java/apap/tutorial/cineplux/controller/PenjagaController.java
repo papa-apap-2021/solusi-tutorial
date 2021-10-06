@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.LocalTime;
-import java.util.Optional;
-
 @Controller
 public class PenjagaController {
 
@@ -74,15 +71,19 @@ public class PenjagaController {
         return "error-notfound";
     }
 
-    @GetMapping("/penjaga/delete/{noPenjaga}")
-    public String deletePenjagaForm(@PathVariable Long noPenjaga, Model model){
-        LocalTime now = LocalTime.now();
-        PenjagaModel penjaga = penjagaService.getPenjagaByNoPenjaga(noPenjaga);
-        BioskopModel bioskop = penjaga.getBioskop();
-        if (now.isBefore(bioskop.getWaktuBuka()) || now.isAfter(bioskop.getWaktuTutup())){
-            penjagaService.removePenjaga(penjaga);
-            model.addAttribute("namaPenjaga", penjaga.getNamaPenjaga());
-            model.addAttribute("noBioskop", penjaga.getBioskop().getNoBioskop());
+
+    @PostMapping("/penjaga/delete")
+    public String deletePenjagaSubmit(
+        @ModelAttribute BioskopModel bioskop,
+        Model model
+    ){
+        model.addAttribute("noBioskop", bioskop.getNoBioskop());
+        int res = 1;
+        for (PenjagaModel penjaga:
+             bioskop.getListPenjaga()) {
+            res = penjagaService.deletePenjaga(penjaga);
+        }
+        if (res == 1){
             return "delete-penjaga";
         }
         return "error-notfound";

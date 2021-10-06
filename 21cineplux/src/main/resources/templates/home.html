@@ -2,25 +2,27 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 
 <head>
-    <title>21 Cineplux</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
 <body>
-    <div class="container">
-        <div class="card m-4 p-4">
-            <div class="card-body">
-                <div class="justify-content-center">
-                    <h2>Welcome to 21 Cineplux!</h2>
-                    <br>
-                    <a class="btn btn-primary" href="/bioskop/add">Tambah Bioskop</a>
-                    <a class="btn btn-primary" href="/bioskop/viewall">Lihat Semua Bioskop</a>
-                </div>
-            </div>
+<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+<div class="d-flex justify-content-center">
+    <div class="m-4">
+        <h2>Selamat datang di 21Cineplux</h2>
+        <div class="d-flex justify-content-center">
+            <a th:href="@{/bioskop/viewall}" class="mx-2 btn btn-warning">Lihat semua bioskop</a>
+            <a th:href="@{/bioskop/add}" class="mx-2 btn btn-outline-warning">Tambah bioskop</a>
+        </div>
+        <div class=" my-3 d-flex justify-content-center">
+            <a th:href="@{/film/viewall}" class="mx-2 btn btn-warning">Lihat semua film</a>
+            <a th:href="@{/film/add}" class="mx-2 btn btn-outline-warning">Tambah film</a>
         </div>
     </div>
-
+</div>
 </body>
 
 </html>
