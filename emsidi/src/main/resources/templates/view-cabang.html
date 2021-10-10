@@ -20,22 +20,76 @@
                 <p th:text="'Nomor Telepon Cabang : ' + ${cabang.noTeleponCabang}"></p>
                 <p th:text="'Waktu Buka : ' + ${cabang.waktuBuka}"></p>
                 <p th:text="'Waktu Tutup : ' + ${cabang.waktuTutup}"></p>
-                <div class="col">
-                    <h6>Pegawai : </h6>
-                    <div th:each="pegawai : ${listPegawai}">
-                        <p th:text="'Nama : ' + ${pegawai.namaPegawai}"></p>
-                        <p th:if="${pegawai.jenisKelamin == 0}">Jenis Kelamin : Perempuan</p>
-                        <p th:if="${pegawai.jenisKelamin == 1}">Jenis Kelamin : Laki-laki</p>
-                        <a class="btn btn-warning" th:href="@{/pegawai/update/} + ${pegawai.noPegawai}">Update Pegawai</a>
-                        <a class="btn btn-danger" th:href="@{/pegawai/delete/} + ${pegawai.noPegawai}">Delete Pegawai</a>
-                        <hr>
-                    </div>
+                <div th:if="*{listPegawai.size()  != 0}">
+                    <form th:action="@{/pegawai/delete}" th:object="${cabang}" method="POST">
+                        <input type="hidden" th:field="*{noCabang}" />
+                        <input type="hidden" th:field="*{waktuBuka}" />
+                        <input type="hidden" th:field="*{waktuTutup}" />
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>No Pegawai</th>
+                                <th>Nama</th>
+                                <th>Jenis Kelamin</th>
+                                <th></th>
+                                <th>Hapus</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="pegawai, iterationStatus : ${listPegawai}"
+                                th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+                                <td th:text="${iterationStatus.count}"></td>
+                                <td th:text="${pegawai.noPegawai}"></td>
+                                <td th:text="${pegawai.namaPegawai}"></td>
+                                <td th:if="${pegawai.jenisKelamin} == 0">Laki-Laki</td>
+                                <td th:if="${pegawai.jenisKelamin} == 1">Perempuan</td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" th:href="@{/pegawai/update/} + ${pegawai.noPegawai}">Update</a>
+                                </td>
+                                <td>
+                                    <input class="form-check-input" type="checkbox"
+                                           th:field="*{listPegawai}" th:value="${pegawai.noPegawai}"
+                                           id="flexCheckDefault">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <input type="submit" value="Delete yang dipilih" class="btn btn-danger">
+                    </form>
+                </div>
+                <div th:unless="*{listPegawai.size() != 0}">
+                    <h2 th:text="'Tidak ada pegawai'"></h2>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>No Menu</th>
+                            <th>Nama</th>
+                            <th>Deskripsi</th>
+                            <th>Sedang Tersedia</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="menu, iterationStat : ${cabang.listMenu}"
+                            th:style="${iterationStat.even} ? 'font-weight:bold;'">
+                            <td th:text="${iterationStat.count}"></td>
+                            <td th:text="${menu.noMenu}"></td>
+                            <td th:text="${menu.namaMenu}"></td>
+                            <td th:text="${menu.deskripsiMenu}"></td>
+                            <td th:if="${menu.isAvailable} == true">YA</td>
+                            <td th:if="${menu.isAvailable} == false">TIDAK</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <br>
-                <a class="btn btn-primary" th:href="@{/pegawai/add/} + ${cabang.noCabang}">Tambah Pegawai</a>
             </div>
         </div>
     </div>
+    <a class="btn btn-primary" th:href="@{/pegawai/add/} + ${cabang.noCabang}">Tambah Pegawai</a>
     <a class="btn btn-primary" href="/cabang/viewall">Kembali</a>
 </div>
 

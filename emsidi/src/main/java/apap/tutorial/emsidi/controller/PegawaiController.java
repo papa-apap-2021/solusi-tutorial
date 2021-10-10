@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 @Controller
 public class PegawaiController {
@@ -85,6 +86,22 @@ public class PegawaiController {
             pegawaiService.removePegawai(pegawai);
             model.addAttribute("namaPegawai", pegawai.getNamaPegawai());
             model.addAttribute("noCabang", pegawai.getCabang().getNoCabang());
+            return "delete-pegawai";
+        }
+        return "error-cannot-delete";
+    }
+
+    @PostMapping("/pegawai/delete")
+    public String deletePegawaiSubmit(
+            @ModelAttribute CabangModel cabang,
+            Model model
+    ){
+        LocalTime now = LocalTime.now();
+        if (now.isBefore(cabang.getWaktuBuka()) || now.isAfter(cabang.getWaktuTutup())){
+            for (PegawaiModel pegawai: cabang.getListPegawai()) {
+                pegawaiService.removePegawai(pegawai);
+            }
+            model.addAttribute("noCabang", cabang.getNoCabang());
             return "delete-pegawai";
         }
         return "error-cannot-delete";

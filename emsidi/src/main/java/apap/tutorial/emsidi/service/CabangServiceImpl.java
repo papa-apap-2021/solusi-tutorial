@@ -1,11 +1,16 @@
 package apap.tutorial.emsidi.service;
 
 import apap.tutorial.emsidi.model.CabangModel;
+import apap.tutorial.emsidi.model.MenuModel;
 import apap.tutorial.emsidi.repository.CabangDb;
+import apap.tutorial.emsidi.repository.MenuDb;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +21,18 @@ public class CabangServiceImpl implements CabangService {
     @Autowired
     CabangDb cabangDb;
 
+    @Autowired
+    MenuDb menuDb;
+
     @Override
     public void addCabang(CabangModel cabang) {
+        for (MenuModel menu : cabang.getListMenu()) {
+            MenuModel menuModel = menuDb.getById(menu.getNoMenu());
+            if(menuModel.getListCabang() == null){
+                menuModel.setListCabang(new ArrayList<>());
+            }
+            menuModel.getListCabang().add(cabang); 
+        }
         cabangDb.save(cabang);
     }
 
