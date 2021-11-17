@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Bioskop </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar('Bioskop')"></nav>
+    <div class="container">
+        <h2>Daftar Seluruh Bioskop</h2>
+        <br>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nomor Bioskop</th>
+                    <th scope="col">Nama Bioskop</th>
+                    <th scope="col">Alamat Bioskop</th>
+                    <th scope="col">Jumlah Studio</th>
+                    <th scope="col">Waktu Buka</th>
+                    <th scope="col">Waktu Buka</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="bioskop : ${listBioskop}">
+                    <th th:text="${bioskop.noBioskop}"></th>
+                    <td th:text="${bioskop.namaBioskop}"></td>
+                    <td th:text="${bioskop.alamatBioskop}"></td>
+                    <td th:text="${bioskop.jumlahStudio}"></td>
+                    <td th:text="${bioskop.waktuBuka}"></td>
+                    <td th:text="${bioskop.waktuTutup}"></td>
+                    <td>
+                        <a class="btn btn-secondary" th:href="@{/bioskop/view(noBioskop=${bioskop.noBioskop})}">View</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/bioskop/update/} + ${bioskop.noBioskop}">Update</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" th:href="@{/bioskop/delete/} + ${bioskop.noBioskop}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary" href="/">Home</a>
+    </div>
+
+</body>
+
+</html>

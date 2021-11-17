@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <head th:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+  </head>
+  <head th:fragment="js">
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFIBw8HfCJo="
+            crossorigin="anonymous"
+    ></script>
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+  </head>
+</head>
+<body>
+<nav th:fragment="navbar(page)" class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand font-weight-bold text-warning" th:href="@{/}">21Cineplux</a>
+  <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li th:classappend="${page == 'Home'} ? active : ''" class="nav-item">
+        <a class="nav-link" th:href="@{/}">Home</a>
+      </li>
+      <li th:classappend="${page == 'Bioskop'} ? active : ''"class="nav-item">
+        <a class="nav-link" th:href="@{/bioskop/viewall/}">Bioskop</a>
+      </li>
+      <li th:classappend="${page == 'Film'} ? active : ''"class="nav-item">
+        <a class="nav-link" th:href="@{/film/viewall/}">Film</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" th:action="@{/bioskop/view}" method="GET">
+      <input class="form-control mr-sm-2" type="search"
+             name="noBioskop" placeholder="No Bioskop" aria-label="Search">
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>21 Cineplux</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Bioskop')"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <span th:if="${errorMessage}">
+                    <div class="justify-content-center">
+                        <h2 th:text="${errorMessage}"></h2>
+                        <br>
+                    </div>
+            </span>
+            <span th:unless="${errorMessage}">
+                <div class="justify-content-center">
+                    <h2 th:text="'Bioskop dengan nomor bioskop ' + ${noBioskop} + ' berhasil dihapus.'"></h2>
+                    <br>
+                </div>
+            </span>
+            <a class="btn btn-primary" th:href="@{/bioskop/viewall}">Kembali</a>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
