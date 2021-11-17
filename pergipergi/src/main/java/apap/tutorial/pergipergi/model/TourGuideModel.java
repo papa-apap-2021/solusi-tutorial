@@ -1,5 +1,6 @@
 package apap.tutorial.pergipergi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.io.Serializable;
 @Getter
 @Entity
 @Table(name = "tour_guide")
+@JsonIgnoreProperties(value={"agensi"},allowSetters =true)
 public class TourGuideModel  implements Serializable {
 
     @Id
@@ -38,6 +40,17 @@ public class TourGuideModel  implements Serializable {
     @JoinColumn(name = "no_agensi", referencedColumnName = "noAgensi", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private TravelAgensiModel agensi;
+
+    @Column(name = "umur")
+    private String umur;
+
+    public String getUmur() {
+        return umur;
+    }
+
+    public void setUmur(String umur) {
+        this.umur = umur;
+    }
 
     public Long getNoTourGuide() {
         return noTourGuide;
