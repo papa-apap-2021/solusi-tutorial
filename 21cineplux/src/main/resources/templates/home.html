@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+<div class="alert" th:if="${pesan}">
+    <div th:text="${pesan}" class="alert alert-success text-center" onclick="this.parentElement.style.display='none';"></div>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="m-4">
+        <h2 style="text-align: center" th:text=" 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
+        <h2>Selamat datang di 21Cineplux</h2>
+        <div class="d-flex justify-content-center">
+            <a th:href="@{/bioskop/viewall}" class="mx-2 btn btn-warning">Lihat semua bioskop</a>
+            <a th:href="@{/bioskop/add}" class="mx-2 btn btn-outline-warning">Tambah bioskop</a>
+        </div>
+        <div class=" my-3 d-flex justify-content-center">
+            <a th:href="@{/film/viewall}" class="mx-2 btn btn-warning">Lihat semua film</a>
+            <a th:href="@{/film/add}" class="mx-2 btn btn-outline-warning">Tambah film</a>
+        </div>
+        <div sec:authorize="hasAnyAuthority('ADMIN')" class=" my-3 d-flex justify-content-center">
+            <a th:href="@{/user/add}" class="mx-2 btn btn-outline-warning">Tambah User Baru</a>
+        </div>
+        <div class=" my-3 d-flex justify-content-center">
+            <a th:href="@{/user/ubahPassword}" class="mx-2 btn btn-outline-warning">Ubah Password</a>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

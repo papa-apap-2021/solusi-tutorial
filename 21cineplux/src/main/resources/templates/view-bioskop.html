@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>21 Cineplux</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar('Bioskop')"></nav>
+
+    <div class="container">
+        <div class="card m-4 p-4">
+            <div class="card-body">
+                <div class="justify-content-center">
+                    <h2>Detail Bioskop</h2>
+                    <br>
+                    <p th:text="'Nomor Bioskop : ' + ${bioskop.noBioskop}"></p>
+                    <p th:text="'Nama Bioskop : ' + ${bioskop.namaBioskop}"></p>
+                    <p th:text="'Alamat Bioskop : ' + ${bioskop.alamatBioskop}"></p>
+                    <p th:text="'Jumlah Studio Bioskop : ' + ${bioskop.jumlahStudio}"></p>
+                    <p th:text="'Waktu Buka Bioskop : ' + ${bioskop.waktuBuka}"></p>
+                    <p th:text="'Waktu Tutup Bioskop : ' + ${bioskop.waktuTutup}"></p>
+                    <div th:if="*{listPenjaga.size()  != 0}">
+                        <form th:action="@{/penjaga/delete}" th:object="${bioskop}" method="POST">
+                            <input type="hidden" th:field="*{noBioskop}">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No Penjaga</th>
+                                        <th>Nama</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th></th>
+                                        <th sec:authorize="hasAnyAuthority('MANAGER')" >Hapus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="penjaga, iterationStatus : ${listPenjaga}"
+                                        th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+                                        <td th:text="${iterationStatus.count}"></td>
+                                        <td th:text="${penjaga.noPenjaga}"></td>
+                                        <td th:text="${penjaga.namaPenjaga}"></td>
+                                        <td th:if="${penjaga.jenisKelamin} == 0">Perempuan</td>
+                                        <td th:if="${penjaga.jenisKelamin} == 1">Laki-Laki</td>
+
+                                        <td>
+                                            <a sec:authorize="hasAnyAuthority('MANAGER')" class="btn btn-sm btn-primary"
+                                                th:href="@{/penjaga/update/} + ${penjaga.noPenjaga}">Update</a>
+                                        </td>
+                                        <td>
+                                            <input sec:authorize="hasAnyAuthority('MANAGER')" class="form-check-input" type="checkbox" S th:field="*{listPenjaga}"
+                                                th:value="${penjaga.noPenjaga}" id="flexCheckDefault">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <input sec:authorize="hasAnyAuthority('MANAGER')" type="submit" value="Delete yang dipilih" class="btn btn-danger">
+                        </form>
+                    </div>
+                    <div th:unless="*{listPenjaga.size() != 0}">
+                        <h2 th:text="'Tidak ada penjaga'"></h2>
+                    </div>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>No Film</th>
+                                    <th>Nama</th>
+                                    <th>Deskripsi</th>
+                                    <th>Sedang Tayang</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="film, iterationStatus : ${listFilm}"
+                                    th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+                                    <td th:text="${iterationStatus.count}"></td>
+                                    <td th:text="${film.noFilm}"></td>
+                                    <td th:text="${film.namaFilm}"></td>
+                                    <td th:text="${film.deskripsiFilm}"></td>
+                                    <td th:if="${film.isDisplaying} == 0">YA</td>
+                                    <td th:if="${film.isDisplaying} == 1">TIDAK</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <a class="btn btn-primary" href="/bioskop/viewall">Kembali</a>
+                    <a sec:authorize="hasAnyAuthority('MANAGER')" class="btn btn-primary" th:href="@{/penjaga/add/} + ${bioskop.noBioskop}">tambah penjaga</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

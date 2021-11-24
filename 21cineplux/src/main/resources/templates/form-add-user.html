@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>21 Cineplux</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Tambah User Baru</div>
+                <div class="card-body">
+                    <form th:action="@{/user/add}" method="POST">
+                        <label>Username</label>
+                        <input type="text"  name="username" class="form-control" />
+
+                        <label>Nama</label>
+                        <input type="text"  name="nama" class="form-control" />
+
+                        <label>Email</label>
+                        <input type="email"  name="email" class="form-control" />
+
+                        <label>Password</label>
+                        <input type="password"  name="password" class="form-control" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?]).{8,}" title="Password harus terdiri minimal 8 karakter dengan mengandung angka, huruf besar, huruf kecil, dan simbol"/>
+
+                        <label>Role</label>
+                        <select name="role" class="form-control">
+                            <option selected value=""> --  Pilih Role -- </option>
+                            <option th:each="role : ${listRole}" th:value="${role.id}" th:text="${role.role}"></option>
+                        </select>
+                        <br>
+                        <button type="submit" class="btn btn-warning">Simpan</button>
+                        <a class="btn btn-link" href="/">Home</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

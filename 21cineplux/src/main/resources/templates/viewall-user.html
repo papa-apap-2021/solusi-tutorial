@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Daftar User </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('User')"></nav>
+<div class="container">
+    <div>
+        <h2 class="float-left">Daftar Seluruh User</h2>
+        <a class="float-right btn btn-outline-warning" th:href="@{/user/add}" >Tambah User Baru</a>
+    </div>
+    <br>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${listUser}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.nama}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.role.role}"></td>
+            <td>
+                <a class="btn btn-danger" th:href="@{/user/delete/} + ${user.username}">Hapus</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/">Home</a>
+</div>
+
+</body>
+
+</html>
