@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar User</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<div class="container">
+    <h2>Daftar Seluruh User</h2>
+    <br>
+    <a class="btn btn-primary" th:href="@{/user/add}">Tambah User</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama User</th>
+            <th>Email User</th>
+            <th>Aksi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, iterationStatus : ${listUser}"
+            th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${user.nama}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <a class="btn btn-sm btn-danger" th:href="@{/user/delete/} + ${user.username}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a class="btn btn-primary" href="/">Kembali</a>
+</div>
+
+</body>
+</html>

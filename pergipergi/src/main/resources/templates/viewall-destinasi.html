@@ -13,7 +13,9 @@
 <div class="container">
     <h2>Daftar Seluruh Destinasi</h2>
     <br>
-    <a class="btn btn-primary" th:href="@{/destinasi/add}">Tambah Destinasi</a>
+    <div th:if="${role.equals('Agen')}">
+        <a class="btn btn-primary" th:href="@{/destinasi/add}">Tambah Destinasi</a>
+    </div>
     <table class="table">
         <thead>
         <tr>

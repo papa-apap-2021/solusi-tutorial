@@ -42,11 +42,17 @@
                 <a class="nav-link" href="/destinasi/viewall">Destinasi</a>
             </li>
         </ul>
+        <ul class="navbar-nav pull-right">
+            <a class="nav-item nav-link active" th:href="@{/user/ubahPassword}">Ubah Password</a>
+        </ul>
         <form class="form-inline my-2 my-lg-0" th:action="@{/agensi/view}" method="GET">
             <input class="form-control mr-sm-2" type="search"
                    name="noAgensi" placeholder="No Agensi" aria-label="Search">
             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
         </form>
+        <ul class="navbar-nav pull-right">
+            <a class="nav-item nav-link active" th:href="@{/logout}">Logout</a>
+        </ul>
     </div>
 </nav>
 </body>
