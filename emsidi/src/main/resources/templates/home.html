@@ -13,6 +13,9 @@
 <nav th:replace="fragments/fragment :: navbar('Home')"></nav>
 <div class="d-flex justify-content-center">
     <div class="m-4">
+        <div class="d-flex justify-content-center">
+            <h2 th:text="'Hello ' + ${#httpServletRequest.remoteUser}+'!'">Login as</h2>
+        </div>
         <h2>Selamat datang di Emsidi</h2>
         <div class="d-flex justify-content-center">
             <a th:href="@{/cabang/viewall}" class="mx-2 btn btn-danger">Lihat semua cabang</a>
@@ -21,6 +24,9 @@
         <div class=" my-3 d-flex justify-content-center">
             <a th:href="@{/menu/viewall}" class="mx-2 btn btn-danger">Lihat semua menu</a>
             <a th:href="@{/menu/add}" class="mx-2 btn btn-outline-danger">Tambah menu</a>
+        </div>
+        <div class=" my-3 d-flex justify-content-center">
+            <a th:href="@{/user/add}" class="mx-2 btn btn-outline-warning">Tambah User Baru</a>
         </div>
     </div>
 </div>
